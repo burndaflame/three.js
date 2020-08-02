@@ -375,7 +375,7 @@ GLTFExporter.prototype = {
 		 */
 		function serializeUserData( object, gltfProperty ) {
 
-			if ( Object.keys( object.userData ).length === 0 ) {
+			if (!("userData" in object) || Object.keys( object.userData ).length === 0 ) {
 
 				return;
 
@@ -1244,7 +1244,7 @@ GLTFExporter.prototype = {
 
 				console.warn( 'THREE.GLTFExporter: Creating normalized normal attribute from the non-normalized one.' );
 
-				geometry.setAttribute( 'normal', createNormalizedNormalAttribute( originalNormal ) );
+				geometry.normal = createNormalizedNormalAttribute( originalNormal );
 
 			}
 
@@ -1298,7 +1298,7 @@ GLTFExporter.prototype = {
 
 			}
 
-			if ( originalNormal !== undefined ) geometry.setAttribute( 'normal', originalNormal );
+			if ( originalNormal !== undefined ) geometry.normal = originalNormal;
 
 			// Skip if no exportable attributes found
 			if ( Object.keys( attributes ).length === 0 ) {
